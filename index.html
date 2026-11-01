@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GadgetWardrobe BD</title>
+    <title>Gadget & Wardrobe BD</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cloudflare.com">
 </head>
 <body>
 
     <header>
-        <div class="logo">GadgetWardrobe BD</div>
+        <div class="logo">DualStore BD</div>
         <nav>
             <button class="nav-btn active" onclick="switchTab('gadget')"><i class="fas fa-laptop-code"></i> Future Gadget BD</button>
             <button class="nav-btn" onclick="switchTab('family')"><i class="fas fa-tshirt"></i> Family Wardrobe BD</button>
@@ -25,10 +25,15 @@
         <div class="products-grid" id="products-container"></div>
     </main>
 
-    <!-- Sidebar Cart -->
+    <!-- Shopping Cart Sidebar -->
     <div class="cart-sidebar" id="cart-sidebar">
-        <div class="cart-header"><h3>Shopping Cart</h3><span class="close-cart" onclick="toggleCart()">&times;</span></div>
-        <div class="cart-items" id="cart-items-container"></div>
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <span class="close-cart" onclick="toggleCart()">&times;</span>
+        </div>
+        <div class="cart-items" id="cart-items-container">
+            <!-- Cart items will appear here -->
+        </div>
         <div class="cart-footer">
             <div class="total-price">Total: ৳<span id="cart-total">0</span></div>
             <button class="checkout-btn" onclick="openOrderModal()">Proceed to Order</button>
