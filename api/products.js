@@ -15,8 +15,10 @@ const productSchema = new mongoose.Schema({
     name: String,
     price: Number,
     icon: String,
+    image: String, // 👈 এই নতুন লাইনটি যোগ করুন
     category: { type: String, enum: ['gadget', 'family'] }
 }, { timestamps: true });
+
 
 const Product = mongoose.models.Product || mongoose.model('Product', productSchema);
 
