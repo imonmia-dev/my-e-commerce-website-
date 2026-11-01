@@ -23,14 +23,18 @@ async function fetchProducts() {
         products.forEach(product => {
             const card = document.createElement('div');
             card.className = 'product-card';
-            card.innerHTML = `
-                <div class="product-img"><i class="fas ${product.icon || 'fa-box'}"></i></div>
-                <h3 class="product-title">${product.name}</h3>
-                <p class="product-price">৳${product.price}</p>
-                <button class="add-btn" onclick="addToCart('${product._id}', '${product.name}', ${product.price})">
-                    <i class="fas fa-cart-plus"></i> Add to Cart
-                </button>
-            `;
+            // card.innerHTML অংশটি এভাবে রিপ্লেস করুন
+card.innerHTML = `
+    <div class="product-img">
+        ${product.image ? `<img src="${product.image}" alt="${product.name}" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">` : `<i class="fas ${product.icon || 'fa-box'}"></i>`}
+    </div>
+    <h3 class="product-title">${product.name}</h3>
+    <p class="product-price">৳${product.price}</p>
+    <button class="add-btn" onclick="addToCart('${product._id}', '${product.name}', ${product.price})">
+        <i class="fas fa-cart-plus"></i> Add to Cart
+    </button>
+`;
+
             container.appendChild(card);
         });
     } catch (err) {
