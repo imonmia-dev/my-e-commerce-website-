@@ -89,15 +89,28 @@ function submitOrder(e) {
     const phone = document.getElementById('cust-phone').value;
     const address = document.getElementById('cust-address').value;
     
-    let text = `*New Order from Website*\\n\\n*Name:* ${name}\\n*Phone:* ${phone}\\n*Address:* ${address}\\n\\n*Products:*\\n`;
-    cart.forEach(item => { text += `- ${item.name} (x${item.quantity}) = ৳${item.price * item.quantity}\\n`; });
-    text += `\\n*Total:* ৳${document.getElementById('cart-total').innerText}`;
+    // 📝 কাস্টমারের মেসেজ ফরম্যাট (সহজ ইউআরএল ফ্রেন্ডলি করা হয়েছে)
+    let text = `*New Order from Website*\n\n`;
+    text += `*Name:* ${name}\n`;
+    text += `*Phone:* ${phone}\n`;
+    text += `*Address:* ${address}\n\n`;
+    text += `*Products:*\n`;
     
-    // ✅ আপনার নতুন ফোন নাম্বারটি নিচে যুক্ত করা হয়েছে
-    window.open(`https://wa.me{encodeURIComponent(text)}`, '_blank');
+    cart.forEach(item => { 
+        text += `- ${item.name} (x${item.quantity}) = ৳${item.price * item.quantity}\n`; 
+    });
     
-    cart = []; updateCartUI(); closeOrderModal(); toggleCart();
+    text += `\n*Total:* ৳${document.getElementById('cart-total').innerText}`;
+    
+    // 🚀 ব্রাউজার যেন লিঙ্কটি সহজে বুজতে পারে তাই encodeURIComponent করা হয়েছে
+    const whatsappUrl = `https://wa.me{encodeURIComponent(text)}`;
+    
+    // সরাসরি হোয়াটসঅ্যাপে নিয়ে যাবে, কোনো এরর আসবে না
+    window.open(whatsappUrl, '_blank');
+    
+    cart = []; 
+    updateCartUI(); 
+    closeOrderModal(); 
+    toggleCart();
 }
 
-// Initial Fetch
-fetchProducts();
