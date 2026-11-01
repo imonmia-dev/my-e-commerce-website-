@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DualStore BD</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cloudflare.com">
+</head>
+<body>
+
+    <header>
+        <div class="logo">DualStore BD</div>
+        <nav>
+            <button class="nav-btn active" onclick="switchTab('gadget')"><i class="fas fa-laptop-code"></i> Future Gadget BD</button>
+            <button class="nav-btn" onclick="switchTab('family')"><i class="fas fa-tshirt"></i> Family Wardrobe BD</button>
+        </nav>
+        <div class="cart-icon" onclick="toggleCart()">
+            <i class="fas fa-shopping-cart"></i> <span id="cart-count">0</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="loading" class="status-msg">Fetching products from Database...</div>
+        <div class="products-grid" id="products-container"></div>
+    </main>
+
+    <!-- Sidebar Cart -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header"><h3>Shopping Cart</h3><span class="close-cart" onclick="toggleCart()">&times;</span></div>
+        <div class="cart-items" id="cart-items-container"></div>
+        <div class="cart-footer">
+            <div class="total-price">Total: ৳<span id="cart-total">0</span></div>
+            <button class="checkout-btn" onclick="openOrderModal()">Proceed to Order</button>
+        </div>
+    </div>
+
+    <!-- Order Modal -->
+    <div class="modal" id="order-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeOrderModal()">&times;</span>
+            <h2>Checkout Details</h2>
+            <form onsubmit="submitOrder(event)">
+                <input type="text" id="cust-name" required placeholder="Full Name">
+                <input type="tel" id="cust-phone" required placeholder="Phone Number">
+                <textarea id="cust-address" required placeholder="Full Delivery Address"></textarea>
+                <button type="submit" class="submit-order-btn"><i class="fab fa-whatsapp"></i> Confirm via WhatsApp</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
