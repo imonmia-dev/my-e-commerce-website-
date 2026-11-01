@@ -1,7 +1,6 @@
 let currentTab = 'gadget';
 let cart = [];
 
-// Base API URL
 const API_URL = '/api/products';
 
 async function fetchProducts() {
@@ -50,7 +49,9 @@ function switchTab(tabName) {
     fetchProducts();
 }
 
-function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('open'); }
+function toggleCart() { 
+    document.getElementById('cart-sidebar').classList.toggle('open'); 
+}
 
 function addToCart(id, name, price) {
     const existing = cart.find(item => item.id === id);
@@ -79,9 +80,19 @@ function updateCartUI() {
     document.getElementById('cart-total').innerText = totalPrice;
 }
 
-function removeItem(id) { cart = cart.filter(item => item.id !== id); updateCartUI(); }
-function openOrderModal() { if(cart.length===0) return alert("Cart is empty!"); document.getElementById('order-modal').classList.add('open'); }
-function closeOrderModal() { document.getElementById('order-modal').classList.remove('open'); }
+function removeItem(id) { 
+    cart = cart.filter(item => item.id !== id); 
+    updateCartUI(); 
+}
+
+function openOrderModal() { 
+    if(cart.length===0) return alert("Cart is empty!"); 
+    document.getElementById('order-modal').classList.add('open'); 
+}
+
+function closeOrderModal() { 
+    document.getElementById('order-modal').classList.remove('open'); 
+}
 
 function submitOrder(e) {
     e.preventDefault();
@@ -89,7 +100,6 @@ function submitOrder(e) {
     const phone = document.getElementById('cust-phone').value;
     const address = document.getElementById('cust-address').value;
     
-    // 📝 কাস্টমারের মেসেজ ফরম্যাট (সহজ ইউআরএল ফ্রেন্ডলি করা হয়েছে)
     let text = `*New Order from Website*\n\n`;
     text += `*Name:* ${name}\n`;
     text += `*Phone:* ${phone}\n`;
@@ -102,10 +112,7 @@ function submitOrder(e) {
     
     text += `\n*Total:* ৳${document.getElementById('cart-total').innerText}`;
     
-    // 🚀 ব্রাউজার যেন লিঙ্কটি সহজে বুজতে পারে তাই encodeURIComponent করা হয়েছে
     const whatsappUrl = `https://wa.me{encodeURIComponent(text)}`;
-    
-    // সরাসরি হোয়াটসঅ্যাপে নিয়ে যাবে, কোনো এরর আসবে না
     window.open(whatsappUrl, '_blank');
     
     cart = []; 
@@ -114,3 +121,5 @@ function submitOrder(e) {
     toggleCart();
 }
 
+// Initial Fetch
+fetchProducts();
