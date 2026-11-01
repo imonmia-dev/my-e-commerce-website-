@@ -1,7 +1,7 @@
 let currentTab = 'gadget';
 let cart = [];
 
-// Base API URL (Works dynamically both locally and on Vercel)
+// Base API URL
 const API_URL = '/api/products';
 
 async function fetchProducts() {
@@ -23,18 +23,16 @@ async function fetchProducts() {
         products.forEach(product => {
             const card = document.createElement('div');
             card.className = 'product-card';
-            // card.innerHTML অংশটি এভাবে রিপ্লেস করুন
-card.innerHTML = `
-    <div class="product-img">
-        ${product.image ? `<img src="${product.image}" alt="${product.name}" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">` : `<i class="fas ${product.icon || 'fa-box'}"></i>`}
-    </div>
-    <h3 class="product-title">${product.name}</h3>
-    <p class="product-price">৳${product.price}</p>
-    <button class="add-btn" onclick="addToCart('${product._id}', '${product.name}', ${product.price})">
-        <i class="fas fa-cart-plus"></i> Add to Cart
-    </button>
-`;
-
+            card.innerHTML = `
+                <div class="product-img">
+                    ${product.image ? `<img src="${product.image}" alt="${product.name}" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">` : `<i class="fas ${product.icon || 'fa-box'}"></i>`}
+                </div>
+                <h3 class="product-title">${product.name}</h3>
+                <p class="product-price">৳${product.price}</p>
+                <button class="add-btn" onclick="addToCart('${product._id}', '${product.name}', ${product.price})">
+                    <i class="fas fa-cart-plus"></i> Add to Cart
+                </button>
+            `;
             container.appendChild(card);
         });
     } catch (err) {
@@ -46,7 +44,9 @@ card.innerHTML = `
 function switchTab(tabName) {
     currentTab = tabName;
     document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-    event.currentTarget.classList.add('active');
+    if(event && event.currentTarget) {
+        event.currentTarget.classList.add('active');
+    }
     fetchProducts();
 }
 
@@ -93,7 +93,9 @@ function submitOrder(e) {
     cart.forEach(item => { text += `- ${item.name} (x${item.quantity}) = ৳${item.price * item.quantity}\\n`; });
     text += `\\n*Total:* ৳${document.getElementById('cart-total').innerText}`;
     
+    // ✅ আপনার নতুন ফোন নাম্বারটি নিচে যুক্ত করা হয়েছে
     window.open(`https://wa.me{encodeURIComponent(text)}`, '_blank');
+    
     cart = []; updateCartUI(); closeOrderModal(); toggleCart();
 }
 
